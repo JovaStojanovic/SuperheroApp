@@ -3,7 +3,7 @@
     <ion-buttons>
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>superheroes</ion-title>
+    <ion-title color="white">superheroes</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -28,4 +28,7 @@
       Not only does Tony Stark have no super powers of his own, but the armor that gives him strength was also created to keep his damaged heart beating; he could not survive without his iron shell. Eventually his cardiac condition was corrected by a heart transplant, and a later that left him paralyzed was repaired with a microchip.
     </ion-card-content>
   </ion-card>
+
+  <app-superhero-element *ngFor = "let superhero in superheroes" [superhero]="superhero"></app-superhero-element>
+
 </ion-content>

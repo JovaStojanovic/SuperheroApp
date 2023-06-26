@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SuperheroesPageRoutingModule } from './superheroes-routing.module';
 
 import { SuperheroesPage } from './superheroes.page';
+import {SuperheroElementComponent} from "./superhero-element/superhero-element.component";
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SuperheroesPage } from './superheroes.page';
     IonicModule,
     SuperheroesPageRoutingModule
   ],
-  declarations: [SuperheroesPage]
+  declarations: [SuperheroesPage, SuperheroElementComponent]
 })
 export class SuperheroesPageModule {}

@@ -27,6 +27,9 @@ export class SuperheroServiceService {
     })
   }
 
+  //vraca objekat u formatu {"id1": {superhero1},"id2": {superhero2}...  }
+  //superhero1 i superhero2 prate strukturu interfejsa SuperheroData
+  //id dodeljuje sam firebase
   getSuperheroes(){
     return this.http.get<{[key: string]: SuperheroData}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes.json');
   }
