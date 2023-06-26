@@ -20,6 +20,8 @@ export class AppComponent {
     }).then((resultData) => {
         if(resultData.role === 'confirm') {
           console.log(resultData);
+          //povratna vrednost ove POST metode je Observable pa zato moramo da se subscribe-ujemo i da definisemo next fju
+          //odnosno sta treba da se desi kad se superhero sacuva na firebase-u
           this.superheroService.addSuperhero(
             resultData.data.superheroData.name,
             resultData.data.superheroData.description,
