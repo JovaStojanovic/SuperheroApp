@@ -8,13 +8,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class RegisterPage implements OnInit {
 
-   registerForm: FormGroup= new FormGroup({
-     name: new FormControl('Jovan'),
-     surname: new FormControl(null),
-     email: new FormControl(null),
-     password: new FormControl(null)
-   });
-  constructor() { }
+   registerForm: FormGroup;
+  constructor() {
+
+  }
 
   ngOnInit() {
     this.registerForm = new FormGroup({
