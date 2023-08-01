@@ -6,8 +6,15 @@
   </ion-card-header>
 
   <ion-card-content>
-    {{superhero.description}}
+    <ion-icon name="star" slot = "start" color = "primary" size = "large" (click)="openAlert()"></ion-icon>
     <br>
     Strength: {{superhero.strength}}
+    <br>
+    <br>
+    {{superhero.description}}
+
+
+
   </ion-card-content>
+
 </ion-card>
