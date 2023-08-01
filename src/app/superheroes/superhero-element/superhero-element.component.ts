@@ -7,7 +7,7 @@ import {AlertController} from "@ionic/angular";
   templateUrl: './superhero-element.component.html',
   styleUrls: ['./superhero-element.component.scss'],
 })
-export class SuperheroElementComponent  implements OnInit {
+export class SuperheroElementComponent implements OnInit {
 
 
   @Input() superhero: Superhero = {
