@@ -2,15 +2,19 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 
+// @ts-ignore
 describe('AuthService', () => {
   let service: AuthService;
 
-  beforeEach(() => {
+  // @ts-ignore
+    beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(AuthService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  // @ts-ignore
+    it('should be created', () => {
+    // @ts-ignore
+        expect(service).toBeTruthy();
   });
 });
