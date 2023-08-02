@@ -32,6 +32,7 @@ export class SuperheroElementComponent implements OnInit {
           text: 'Save',
           handler: () =>{
             console.log('Save it');
+
           }
         },
         {
