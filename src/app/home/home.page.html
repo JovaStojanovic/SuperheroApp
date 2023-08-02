@@ -3,16 +3,21 @@
     <ion-buttons>
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title >Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <div class="boom">
-        <img src="assets/images/boom.png" alt="boom">
-      </div>
-    </ion-toolbar>
-  </ion-header>
+ <ion-grid>
+   <ion-row>
+     <ion-col size-sm="6" offset-sm="3">
+       <div class="boom">
+         <img src="assets/images/boom.png" alt="boom">
+       </div>
+     </ion-col>
+
+   </ion-row>
+
+ </ion-grid>
+
 </ion-content>
