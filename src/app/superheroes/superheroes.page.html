@@ -3,12 +3,18 @@
     <ion-buttons>
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title color="white">Superheroes</ion-title>
-    <ion-buttons slot="end">
-      <ion-fab-button size="small" color="tertiary" (click)="openModal()">
-        <ion-icon name="search"></ion-icon>
-      </ion-fab-button>
-    </ion-buttons>
+
+<!--    <ion-buttons slot="end">-->
+<!--      <ion-fab-button size="small" color="tertiary" (click)="openModal()">-->
+<!--        <ion-icon name="search"></ion-icon>-->
+<!--      </ion-fab-button>-->
+<!--    </ion-buttons>-->
+
+
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar animated="true" placeholder="Search superheroes" show-clear-button="always"></ion-searchbar>
+
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +24,7 @@
       <ion-title size="large" color="primary">Superheroes</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  <ion-title color="primary" size="large">Superheroes</ion-title>
   <app-superhero-element *ngFor = "let superhero of superheroes" [superhero]="superhero"
                         ></app-superhero-element>
 

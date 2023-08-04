@@ -49,6 +49,7 @@ export class AuthService {
         }`,
         {email: user.email, password: user.password, returnSecureToken: true}
     );
+
   }
   login(user: UserData){
     this._isUserAuthenticated = true;
