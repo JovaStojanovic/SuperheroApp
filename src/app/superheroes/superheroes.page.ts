@@ -32,6 +32,9 @@ ionViewWillEnter(){
 
 }
 
+openModal(){
+    console.log("search")
+}
 ngOnDestroy(){
     if(this._superheroSub){
       this._superheroSub.unsubscribe();
