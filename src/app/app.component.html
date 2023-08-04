@@ -10,20 +10,48 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-menu-toggle>
-          <ion-item routerLink="/superheroes">Superheroes</ion-item>
+
+          <ion-item routerLink="">
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-label>Home</ion-label>
+          </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item (click)="openModal()">Add a Superhero</ion-item>
+
+          <ion-item routerLink="/superheroes">
+            <ion-icon name="flash" slot="start"></ion-icon>
+            <ion-label>Superheroes</ion-label></ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item routerLink="/favorites">Favorites</ion-item>
+
+          <ion-item (click)="openModal()">
+            <ion-icon name="add-circle" slot="start"></ion-icon>
+            <ion-label>Add a Superhero</ion-label>
+          </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item routerLink="/mysuperheroes">My superheroes</ion-item>
+
+          <ion-item routerLink="/favorites">
+            <ion-icon name="star" slot="start"></ion-icon>
+            <ion-label>Favorites</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+
+        <ion-menu-toggle>
+
+          <ion-item routerLink="/mysuperheroes">
+            <ion-icon name="thunderstorm" slot="start"></ion-icon>
+            <ion-label>My superheroes</ion-label>
+          </ion-item>
         </ion-menu-toggle>
 
         <ion-menu-toggle>
-          <ion-item routerLink="/login-or-registration" >Log out</ion-item>
+
+          <ion-item routerLink="/login-or-registration">
+            <ion-icon name="log-out" slot="start"></ion-icon>
+            <ion-label>Log out</ion-label>
+          </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </ion-content>
