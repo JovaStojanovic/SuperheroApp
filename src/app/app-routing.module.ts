@@ -38,7 +38,8 @@ const routes: Routes = [
   {
     path: 'login-or-registration',
     loadChildren: () => import('./auth/login-or-registration/login-or-registration.module').then( m => m.LoginOrRegistrationPageModule)
-  },  {
+  },
+  {
     path: 'mysuperheroes',
     loadChildren: () => import('./mysuperheroes/mysuperheroes.module').then( m => m.MysuperheroesPageModule)
   },
