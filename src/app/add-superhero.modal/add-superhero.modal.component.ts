@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalController} from "@ionic/angular";
 import {NgForm} from "@angular/forms";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-add-superhero.modal',
@@ -11,7 +12,7 @@ export class AddSuperheroModalComponent  implements OnInit {
 
   // @ts-ignore
   @ViewChild("f", {static: true}) form: NgForm;
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController, private authService: AuthService) { }
 
   ngOnInit() {}
 
@@ -29,7 +30,8 @@ export class AddSuperheroModalComponent  implements OnInit {
         description: this.form.value['description'],
         strength: this.form.value['strength'],
         universe: this.form.value['universe'],
-        imageUrl: this.form.value['imageUrl']
+        imageUrl: this.form.value['imageUrl'],
+        user_id: this.authService.getUserId()
       }}, 'confirm');
 
 

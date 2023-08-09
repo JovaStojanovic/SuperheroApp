@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AddSuperheroModalComponent} from "./add-superhero.modal/add-superhero.modal.component";
 import {ModalController} from "@ionic/angular";
 import {SuperheroServiceService} from "./superhero-service.service";
+import {AuthService} from "./auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import {SuperheroServiceService} from "./superhero-service.service";
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private modalCtrl: ModalController, private superheroService: SuperheroServiceService) {}
+  constructor(private modalCtrl: ModalController, private superheroService: SuperheroServiceService, private authService: AuthService) {}
 
   openModal(){
     this.modalCtrl.create({
@@ -27,7 +28,8 @@ export class AppComponent {
             resultData.data.superheroData.description,
             resultData.data.superheroData.strength,
             resultData.data.superheroData.universe,
-            resultData.data.superheroData.imageUrl).subscribe((res) =>{
+            resultData.data.superheroData.imageUrl,
+            this.authService.getUserId()).subscribe((res) =>{
               console.log(res);
           })
         }

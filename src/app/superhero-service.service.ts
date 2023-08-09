@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map,tap} from "rxjs";
 import {Superhero} from "./superheroes/superhero-element/superhero-model";
+import {AuthService} from "./auth/auth.service";
 
 interface SuperheroData {
   name: String;
@@ -9,6 +10,7 @@ interface SuperheroData {
   strength: number;
   universe: String;
   imageUrl: String;
+  user_id: String;
 }
 
 
@@ -22,15 +24,16 @@ export class SuperheroServiceService {
   get superheroes(){
     return this._superheroes.asObservable();
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   addSuperhero(name: String,
   description: String,
   strength: number,
   universe: String,
-  imageUrl: String){
+  imageUrl: String,
+  user_id: String){
     return this.http.post<{id: string}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes.json', {
-      name, description, strength, universe, imageUrl
+      name, description, strength, universe, imageUrl, user_id
     })
   }
 
@@ -53,7 +56,8 @@ export class SuperheroServiceService {
               description: superheroData[key].description,
               strength: superheroData[key].strength,
               universe: superheroData[key].universe,
-              imageUrl: superheroData[key].imageUrl
+              imageUrl: superheroData[key].imageUrl,
+              user_id: this.authService.getUserId()
             });
           }
         }
@@ -66,6 +70,40 @@ export class SuperheroServiceService {
 
     }));
   }
+  getSuperheroesById(){
+    return this.http.get<{[key: string]: SuperheroData}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes.json')
+      .pipe(map((superheroData)=>{
+          console.log(superheroData);
+          const superheroes: Superhero[]=[];
+          //const superherosById: Superhero[]=[];
+          for(const key in superheroData){
+            //provera da ne gleda nasledjene property-je
+            if(superheroData.hasOwnProperty(key) && superheroData[key].user_id == this.authService.getUserId()){
+              superheroes.push({
+                id:key,
+                name: superheroData[key].name,
+                description: superheroData[key].description,
+                strength: superheroData[key].strength,
+                universe: superheroData[key].universe,
+                imageUrl: superheroData[key].imageUrl,
+                user_id: this.authService.getUserId()
+              });
+            }
+          }
 
+          /*for (let i = 0; i < superheroes.length; i++){
+            if(superheroes[i].user_id == this.authService.getUserId()){
+              superherosById.push(superheroes[i]);
+            }
+          }*/
+
+          return superheroes;
+        }),
+        tap((superheroes)=>{
+          this._superheroes.next(superheroes);
+
+
+        }));
+  }
 
 }

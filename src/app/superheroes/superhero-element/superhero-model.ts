@@ -5,4 +5,5 @@ export interface Superhero {
   strength: number;
   universe: String;
   imageUrl: String;
+  user_id: String;
 }

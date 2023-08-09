@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MysuperheroesPageRoutingModule } from './mysuperheroes-routing.module';
 
 import { MysuperheroesPage } from './mysuperheroes.page';
+import {SuperheroesPageModule} from "../superheroes/superheroes.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MysuperheroesPageRoutingModule
+    MysuperheroesPageRoutingModule,
+    SuperheroesPageModule
   ],
   declarations: [MysuperheroesPage]
 })

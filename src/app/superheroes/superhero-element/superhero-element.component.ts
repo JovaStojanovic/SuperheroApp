@@ -16,7 +16,8 @@ export class SuperheroElementComponent implements OnInit {
     description: "lorem ipsun",
     strength: 10,
     universe: "Marvel universe",
-    imageUrl: "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg"
+    imageUrl: "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg",
+    user_id: "9anSQbvku2SyIgTNTaale2lxtFv2"
   };
   constructor(private alertCtrl: AlertController) { }
 

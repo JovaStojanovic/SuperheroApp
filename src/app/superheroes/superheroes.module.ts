@@ -16,6 +16,9 @@ import {SuperheroElementComponent} from "./superhero-element/superhero-element.c
     IonicModule,
     SuperheroesPageRoutingModule
   ],
+  exports: [
+    SuperheroElementComponent
+  ],
   declarations: [SuperheroesPage, SuperheroElementComponent]
 })
 export class SuperheroesPageModule {}
