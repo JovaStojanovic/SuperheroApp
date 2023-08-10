@@ -5,8 +5,8 @@
     <ion-card-subtitle>{{superhero.universe}}</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-card-content>
-    <ion-icon name="star" slot = "start" color = "primary" size = "large" (click)="openAlert()"></ion-icon>
+  <ion-card-content class="content-text">
+
     <br>
     Strength: {{superhero.strength}}
     <br>
@@ -16,5 +16,5 @@
 
 
   </ion-card-content>
-
+<ion-card-content class="content-icons"><ion-icon name="star" slot = "start" color = "secondary" size = "large" (click)="openAlert()"></ion-icon></ion-card-content>
 </ion-card>

@@ -1,20 +1,23 @@
 <ion-card>
+
   <img alt="Superhero" src="{{superhero.imageUrl}}" />
   <ion-card-header>
     <ion-card-title>{{superhero.name}}</ion-card-title>
     <ion-card-subtitle>{{superhero.universe}}</ion-card-subtitle>
   </ion-card-header>
 
-  <ion-card-content>
-    <ion-icon name="star" slot = "start" color = "primary" size = "large" (click)="openAlert()"></ion-icon>
+  <ion-card-content class="content-text">
+
     <br>
     Strength: {{superhero.strength}}
     <br>
     <br>
     {{superhero.description}}
 
-
-
   </ion-card-content>
+<ion-card-content class="content-icons">
+  <ion-icon name="pencil" size="large"  class="tab-icon" color="secondary"></ion-icon>
 
+  <ion-icon name="trash" size="large" color="secondary"></ion-icon>
+</ion-card-content>
 </ion-card>

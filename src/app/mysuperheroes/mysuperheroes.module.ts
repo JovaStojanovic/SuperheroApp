@@ -8,6 +8,7 @@ import { MysuperheroesPageRoutingModule } from './mysuperheroes-routing.module';
 
 import { MysuperheroesPage } from './mysuperheroes.page';
 import {SuperheroesPageModule} from "../superheroes/superheroes.module";
+import {MysuperheroElementComponent} from "./mysuperhero-element/mysuperhero-element.component";
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import {SuperheroesPageModule} from "../superheroes/superheroes.module";
     MysuperheroesPageRoutingModule,
     SuperheroesPageModule
   ],
-  declarations: [MysuperheroesPage]
+  declarations: [MysuperheroesPage, MysuperheroElementComponent]
 })
 export class MysuperheroesPageModule {}

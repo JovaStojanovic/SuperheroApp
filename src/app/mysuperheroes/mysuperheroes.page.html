@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>My superheroes</ion-title>
+
 
     <ion-buttons slot="end">
       <ion-fab-button size="small" color="tertiary" (click)="openModal()">
@@ -12,9 +12,16 @@
       </ion-fab-button>
     </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <app-mysuperhero-element>*ngFor = "let superhero of superheroes" [superhero]="superhero"</app-mysuperhero-element>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" color="primary" >
+        My superheroes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-title color="primary" size="large" class="title-toolbar"> <b>My superheroes</b></ion-title>
+  <app-mysuperhero-element *ngFor = "let superhero of superheroes" [superhero]="superhero"></app-mysuperhero-element>
 </ion-content>
