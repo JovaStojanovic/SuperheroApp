@@ -10,6 +10,8 @@ import {ViewWillEnter} from "@ionic/angular";
   styleUrls: ['./superheroes.page.scss'],
 })
 export class SuperheroesPage implements OnInit,OnDestroy, ViewWillEnter {
+searchTerm:string;
+filteredSuperheroes: Superhero[]=[];
 
   private _superheroSub: Subscription;
   superheroes: Superhero[];
@@ -22,16 +24,24 @@ export class SuperheroesPage implements OnInit,OnDestroy, ViewWillEnter {
   ngOnInit() {
   this._superheroSub = this.superheroService.superheroes.subscribe((superheroData)=>{
   this.superheroes = superheroData;
+  this.filteredSuperheroes = this.superheroes;
 })
 }
 
 ionViewWillEnter(){
   this.superheroService.getSuperheroes().subscribe((superheroData)=>{
     this.superheroes = superheroData;
+    this.filteredSuperheroes = this.superheroes;
   });
 
 }
+  filterResults(search:String){
 
+    if(!search){
+      this.filteredSuperheroes= this.superheroes;
+    }
+    this.filteredSuperheroes = this.superheroes.filter(superhero => superhero?.name.toLowerCase().includes(search.toLowerCase()));
+  }
 openModal(){
     console.log("search")
 }
