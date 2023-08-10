@@ -13,7 +13,7 @@ export class SuperheroElementComponent implements OnInit {
   @Input() superhero: Superhero = {
     id: "s1",
     name: "IronMan",
-    description: "lorem ipsun",
+    description: "lorem ipsum",
     strength: 10,
     universe: "Marvel universe",
     imageUrl: "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg",
