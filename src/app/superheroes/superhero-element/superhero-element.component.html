@@ -20,8 +20,8 @@
 <!--  <button ion-fab mini clear (click)="mIName = 'arrow-dropup'">
    <ion-icon #minimizeIcon [name]="mIName"></ion-icon>
 </button>-->
-  <button class="button-icon" (click)="mIName = 'star'">
-  <ion-icon #minimizeIcon [name]="mIName"  slot = "start" color = "secondary" size = "large" (click)="openAlert()"></ion-icon>
+  <button class="button-icon" (click)="mIName = status()">
+  <ion-icon #minimizeIcon [name]="mIName"  slot = "start" color = "secondary" size = "large" ></ion-icon>
   </button>
 </ion-card-content>
 </ion-card>

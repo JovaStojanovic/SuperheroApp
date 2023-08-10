@@ -24,7 +24,13 @@ export class SuperheroElementComponent implements OnInit {
 
   ngOnInit() {}
 
-
+status():string{
+  if(this.mIName == 'star-outline'){
+    return "star";
+  }  else{
+    return "star-outline";
+  }
+}
   openAlert(){
 
     this.alertCtrl.create({
