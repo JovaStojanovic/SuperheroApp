@@ -9,6 +9,7 @@ import {AlertController} from "@ionic/angular";
 })
 export class SuperheroElementComponent implements OnInit {
 
+  mIName: string = "star-outline";
 
   @Input() superhero: Superhero = {
     id: "s1",
@@ -22,6 +23,7 @@ export class SuperheroElementComponent implements OnInit {
   constructor(private alertCtrl: AlertController) { }
 
   ngOnInit() {}
+
 
   openAlert(){
 
