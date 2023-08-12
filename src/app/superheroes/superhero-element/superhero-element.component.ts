@@ -26,6 +26,7 @@ export class SuperheroElementComponent implements OnInit {
 
 status():string{
   if(this.mIName == 'star-outline'){
+    //dodati funkcionalnost za favorites
     return "star";
   }  else{
     return "star-outline";
@@ -35,7 +36,7 @@ status():string{
 
     this.alertCtrl.create({
       header: "Saving superhero",
-      message: "Are you sure you want to save this superhero on your saving list?",
+      message: "Are you sure you want to save this superhero on your favorite list?",
       buttons:[
         {
           text: 'Save',

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map,tap} from "rxjs";
 import {Superhero} from "./superheroes/superhero-element/superhero-model";
 import {AuthService} from "./auth/auth.service";
+import {MysuperheroesPage} from "./mysuperheroes/mysuperheroes.page";
 
 interface SuperheroData {
   name: String;
@@ -106,4 +107,11 @@ export class SuperheroServiceService {
         }));
   }
 
+  deleteSuperhero(superheroID: String) {
+    return this.http.delete('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+superheroID+'.json');
+  }
+
+    updateSuperhero(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string, userId: string}) {
+      return this.http.put('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+id+'.json', updatedSuperhero);
+    }
 }

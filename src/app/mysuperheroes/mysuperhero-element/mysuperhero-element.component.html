@@ -16,8 +16,8 @@
 
   </ion-card-content>
 <ion-card-content class="content-icons">
-  <ion-icon name="pencil" size="large"  color="secondary" class = "pencil-icon"></ion-icon>
+  <ion-icon name="pencil" size="large"  color="secondary" class = "pencil-icon" (click)="updateSuperhero(superhero.id, superhero.name, superhero.description, superhero.strength, superhero.universe, superhero.imageUrl)"></ion-icon>
 
-  <ion-icon name="trash" size="large" color="secondary"></ion-icon>
+  <ion-icon name="trash" size="large" color="secondary" (click)="deleteSuperhero(superhero.id)"></ion-icon>
 </ion-card-content>
 </ion-card>

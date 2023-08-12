@@ -5,6 +5,7 @@ import {SuperheroServiceService} from "../superhero-service.service";
 import {AuthService} from "../auth/auth.service";
 import {Superhero} from "../superheroes/superhero-element/superhero-model";
 import {Subscription} from "rxjs";
+import {UpdateSuperheroModalComponent} from "../update-superhero.modal/update-superhero.modal.component";
 
 @Component({
   selector: 'app-mysuperheroes',
@@ -26,13 +27,19 @@ export class MysuperheroesPage implements OnInit {
       this.superheroes = superheroData;
     })
   }
+
   ionViewWillEnter(){
     this.superheroService.getSuperheroesById().subscribe((superheroData)=>{
       this.superheroes = superheroData;
     });
 
   }
-
+  deleteSuperhero(superheroID: String) {
+    this.superheroService.deleteSuperhero(superheroID).subscribe(() =>{
+        this.ngOnInit();
+        this.ionViewWillEnter();
+    });
+  }
 
   openModal(){
     this.modalCtrl.create({
@@ -53,6 +60,42 @@ export class MysuperheroesPage implements OnInit {
             resultData.data.superheroData.imageUrl,
             this.authService.getUserId()).subscribe((res) =>{
           console.log(res);
+          this.ngOnInit();
+          this.ionViewWillEnter();
+        })
+      }
+    })
+  }
+
+
+  updateSuperhero(id: string, name: String, description: String, strength: number, universe: String, imageUrl: String) {
+    this.modalCtrl.create({
+      component: UpdateSuperheroModalComponent,
+      componentProps: {'superheroName' : name,
+        'superheroDescription': description,
+        'superheroStrength' : strength,
+        'superheroUniverse' : universe,
+        'superheroImageUrl' : imageUrl
+      }
+    }).then((modal: HTMLIonModalElement) => {
+      modal.present();
+      return modal.onDidDismiss();
+    }).then((resultData) => {
+      if(resultData.role === 'confirm') {
+        console.log(resultData);
+        //povratna vrednost ove POST metode je Observable pa zato moramo da se subscribe-ujemo i da definisemo next fju
+        //odnosno sta treba da se desi kad se superhero sacuva na firebase-u
+        this.superheroService.updateSuperhero(
+            id,
+            {name: resultData.data.superheroData.name,
+              description: resultData.data.superheroData.description,
+              strength: resultData.data.superheroData.strength,
+              universe: resultData.data.superheroData.universe,
+              imageUrl: resultData.data.superheroData.imageUrl,
+              userId: this.authService.getUserId()}).subscribe((res) =>{
+          console.log(res);
+          this.ngOnInit();
+          this.ionViewWillEnter();
         })
       }
     })

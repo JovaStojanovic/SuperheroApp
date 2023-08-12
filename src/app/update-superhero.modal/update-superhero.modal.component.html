@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Update a Superhero</ion-title>
+    <ion-button (click)="onCancel()" slot = "end">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onUpdateSuperhero()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label>
+              Name:
+            </ion-label>
+            <ion-input type="text" ngModel name="name" required="true" [(ngModel)]="superheroName"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label>
+              Description:
+            </ion-label>
+            <ion-textarea rows="4" type="text" ngModel name="description" required="true" [(ngModel)]="superheroDescription"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label>
+              Strength:
+            </ion-label>
+            <ion-input type="number" ngModel name="strength" required="true" [(ngModel)]="superheroStrength"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-label style="margin-left: 15px">
+            Universe:
+          </ion-label>
+          <ion-item>
+              <ion-radio-group *ngFor="let option of data"
+                               [(ngModel)]="superheroUniverse" ngModel name="universe" required="true">
+                <ion-radio value="DC">DC</ion-radio><br />
+                <ion-radio value="Marvel">Marvel</ion-radio><br />
+              </ion-radio-group>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label>
+              Image URL:
+            </ion-label>
+            <ion-input type="text" ngModel name="imageUrl" required="true" [(ngModel)]="superheroImageUrl"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button type="submit" expand="block" [disabled]="f.invalid">
+            Update
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
