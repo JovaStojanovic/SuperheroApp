@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { UpdateSuperheroModalComponent } from './update-superhero.modal.component';
 
-describe('AddSuperheroModalComponent', () => {
+describe('UpdateSuperheroModalComponent', () => {
   let component: UpdateSuperheroModalComponent;
   let fixture: ComponentFixture<UpdateSuperheroModalComponent>;
 

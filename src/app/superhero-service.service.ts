@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map,tap} from "rxjs";
 import {Superhero} from "./superheroes/superhero-element/superhero-model";
 import {AuthService} from "./auth/auth.service";
-import {MysuperheroesPage} from "./mysuperheroes/mysuperheroes.page";
+import {Favorite} from "./favorites/favorite-element/favorite-model";
 
 interface SuperheroData {
   name: String;
@@ -14,16 +14,24 @@ interface SuperheroData {
   user_id: String;
 }
 
+interface FavoritesData{
+  superheroID: string;
+  user_id: String;
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SuperheroServiceService {
-
+  superheroesList: Superhero[];
   private _superheroes = new BehaviorSubject<Superhero[]>([])
-
+  private _favorites = new BehaviorSubject<Favorite[]>([])
   get superheroes(){
     return this._superheroes.asObservable();
+  }
+  get favorites(){
+    return this._favorites.asObservable();
   }
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -38,6 +46,12 @@ export class SuperheroServiceService {
     })
   }
 
+  addFavorite(superheroID: String,
+              user_id: String) {
+    return this.http.post<{id: string}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/favorites.json', {
+      superheroID, user_id
+    })
+  }
 
   //vraca objekat u formatu {"id1": {superhero1},"id2": {superhero2}...  }
   //superhero1 i superhero2 prate strukturu interfejsa SuperheroData
@@ -75,6 +89,7 @@ export class SuperheroServiceService {
     return this.http.get<{[key: string]: SuperheroData}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes.json')
       .pipe(map((superheroData)=>{
           console.log(superheroData);
+          console.log(this.authService.getUserId());
           const superheroes: Superhero[]=[];
           //const superherosById: Superhero[]=[];
           for(const key in superheroData){
@@ -111,7 +126,61 @@ export class SuperheroServiceService {
     return this.http.delete('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+superheroID+'.json');
   }
 
-    updateSuperhero(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string, userId: string}) {
+    updateSuperhero(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string, user_id: string}) {
       return this.http.put('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+id+'.json', updatedSuperhero);
     }
+
+  deleteFavorite(superheroID: String, user_id: String) {
+    //Uraditi
+  }
+
+  getFavoritesById() {
+    return this.http.get<{[key: string]: FavoritesData}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/favorites.json')
+      .pipe(map((favoritesData)=>{
+          console.log(favoritesData);
+          const favorites: Favorite[]=[];
+          let superheroes: Superhero[]=[];
+          const superheroesF: Superhero[]=[];
+          for(const key in favoritesData){
+            //provera da ne gleda nasledjene property-je
+            if(favoritesData.hasOwnProperty(key) && favoritesData[key].user_id == this.authService.getUserId()){
+              favorites.push({
+                id:key,
+                superheroID: favoritesData[key].superheroID,
+                user_id: this.authService.getUserId()
+              });
+            }
+          }
+          this.getSuperheroes().subscribe((IDsuperheroes)=>{
+            console.log(IDsuperheroes);
+            console.log(favorites);
+            this.superheroesList = IDsuperheroes;
+            for(const keyF in favorites) {
+              for(const keyS in this.superheroesList) {
+                if(favorites[keyF].superheroID == this.superheroesList[keyS].id && favorites[keyF].user_id == this.authService.getUserId()) {
+                  console.log("POGODAK");
+                  superheroesF.push({
+                    id:this.superheroesList[keyS].id,
+                    name: this.superheroesList[keyS].name,
+                    description: this.superheroesList[keyS].description,
+                    strength: this.superheroesList[keyS].strength,
+                    universe: this.superheroesList[keyS].universe,
+                    imageUrl: this.superheroesList[keyS].imageUrl,
+                    user_id: this.authService.getUserId()
+                  });
+                }
+              }
+            }
+          });
+
+
+          console.log(superheroesF);
+          return superheroesF;
+        }),
+        tap((superheroesF)=>{
+          this._superheroes.next(superheroesF);
+
+
+        }));
+  }
 }

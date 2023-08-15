@@ -23,13 +23,15 @@ export class MysuperheroesPage implements OnInit {
   }
 
   ngOnInit() {
-    this._superheroSub = this.superheroService.superheroes.subscribe((superheroData)=>{
+    this.superheroService.getSuperheroesById().subscribe((superheroData)=>{
+      console.log(superheroData);
       this.superheroes = superheroData;
-    })
+    });
   }
 
   ionViewWillEnter(){
     this.superheroService.getSuperheroesById().subscribe((superheroData)=>{
+      console.log(superheroData);
       this.superheroes = superheroData;
     });
 
@@ -92,7 +94,7 @@ export class MysuperheroesPage implements OnInit {
               strength: resultData.data.superheroData.strength,
               universe: resultData.data.superheroData.universe,
               imageUrl: resultData.data.superheroData.imageUrl,
-              userId: this.authService.getUserId()}).subscribe((res) =>{
+              user_id: this.authService.getUserId()}).subscribe((res) =>{
           console.log(res);
           this.ngOnInit();
           this.ionViewWillEnter();

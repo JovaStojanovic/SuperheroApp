@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Superhero} from "./superhero-model";
 import {AlertController} from "@ionic/angular";
+import {AuthService} from "../../auth/auth.service";
+import {SuperheroServiceService} from "../../superhero-service.service";
 
 @Component({
   selector: 'app-superhero-element',
@@ -20,13 +22,34 @@ export class SuperheroElementComponent implements OnInit {
     imageUrl: "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg",
     user_id: "9anSQbvku2SyIgTNTaale2lxtFv2"
   };
-  constructor(private alertCtrl: AlertController) { }
+  constructor(private alertCtrl: AlertController, private authService: AuthService, private superheroService: SuperheroServiceService) { }
 
   ngOnInit() {}
 
-status():string{
+status(superheroID: String):string{
   if(this.mIName == 'star-outline'){
-    //dodati funkcionalnost za favorites
+    this.alertCtrl.create({
+      header: "Saving superhero",
+      message: "Are you sure you want to save this superhero on your favorite list?",
+      buttons:[
+        {
+          text: 'Save',
+          handler: () =>{
+            this.superheroService.addFavorite(superheroID, this.authService.getUserId()).subscribe();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () =>{
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then((alert)=>{
+      alert.present();
+      //posto ova openAlert metoda vraca promise, moramo ovim then delom da se osiguramo da se ce prikazati sam alert
+    });
     return "star";
   }  else{
     return "star-outline";

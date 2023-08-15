@@ -41,7 +41,8 @@ const routes: Routes = [
   },
   {
     path: 'mysuperheroes',
-    loadChildren: () => import('./mysuperheroes/mysuperheroes.module').then( m => m.MysuperheroesPageModule)
+    loadChildren: () => import('./mysuperheroes/mysuperheroes.module').then( m => m.MysuperheroesPageModule),
+    canLoad: [AuthGuard]
   },
 
 
