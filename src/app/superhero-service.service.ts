@@ -6,12 +6,13 @@ import {AuthService} from "./auth/auth.service";
 import {Favorite} from "./favorites/favorite-element/favorite-model";
 
 interface SuperheroData {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
   strength: number;
-  universe: String;
-  imageUrl: String;
-  user_id: String;
+  universe: string;
+  imageUrl: string;
+  user_id: string;
+  iconName: string;
 }
 
 interface FavoritesData{
@@ -25,8 +26,11 @@ interface FavoritesData{
 })
 export class SuperheroServiceService {
   superheroesList: Superhero[];
+  favoriteForDeleteId: string;
+  id: string;
+  isIt: Boolean;
   private _superheroes = new BehaviorSubject<Superhero[]>([])
-  private _favorites = new BehaviorSubject<Favorite[]>([])
+  private _favorites = new BehaviorSubject<Superhero[]>([])
   get superheroes(){
     return this._superheroes.asObservable();
   }
@@ -40,9 +44,10 @@ export class SuperheroServiceService {
   strength: number,
   universe: String,
   imageUrl: String,
-  user_id: String){
+  user_id: String,
+  iconName: String){
     return this.http.post<{id: string}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes.json', {
-      name, description, strength, universe, imageUrl, user_id
+      name, description, strength, universe, imageUrl, user_id, iconName
     })
   }
 
@@ -72,7 +77,8 @@ export class SuperheroServiceService {
               strength: superheroData[key].strength,
               universe: superheroData[key].universe,
               imageUrl: superheroData[key].imageUrl,
-              user_id: this.authService.getUserId()
+              user_id: this.authService.getUserId(),
+                iconName: superheroData[key].iconName
             });
           }
         }
@@ -102,7 +108,8 @@ export class SuperheroServiceService {
                 strength: superheroData[key].strength,
                 universe: superheroData[key].universe,
                 imageUrl: superheroData[key].imageUrl,
-                user_id: this.authService.getUserId()
+                user_id: this.authService.getUserId(),
+                  iconName: superheroData[key].iconName
               });
             }
           }
@@ -126,20 +133,39 @@ export class SuperheroServiceService {
     return this.http.delete('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+superheroID+'.json');
   }
 
-    updateSuperhero(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string, user_id: string}) {
+    updateSuperhero(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string, user_id: string, iconName: string}) {
       return this.http.put('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+id+'.json', updatedSuperhero);
     }
 
-  deleteFavorite(superheroID: String, user_id: String) {
-    //Uraditi
-  }
 
+  deleteFavorite(superheroID: string) {
+    let id2: string = "";
+    this.getFavoriteBySuperheroIDAndUserId(superheroID).subscribe(res=> {
+      id2 = res;
+      console.log(res);
+      return this.http.delete('https://superhero-app-5c948-default-rtdb.firebaseio.com/favorites/'+res+'.json').subscribe();
+    });
+  }
+  getFavoriteBySuperheroIDAndUserId(superheroID: String) {
+    return this.http.get<{[key: string]: FavoritesData}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/favorites.json')
+      .pipe(map((favoritesData)=>{
+          console.log(favoritesData);
+          for(const key in favoritesData){
+            //provera da ne gleda nasledjene property-je
+            if(favoritesData.hasOwnProperty(key) && favoritesData[key].user_id == this.authService.getUserId() && favoritesData[key].superheroID == superheroID){
+              this.favoriteForDeleteId = key;
+            }
+          }
+
+          console.log(this.favoriteForDeleteId);
+          return this.favoriteForDeleteId;
+        }))
+  }
   getFavoritesById() {
     return this.http.get<{[key: string]: FavoritesData}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/favorites.json')
       .pipe(map((favoritesData)=>{
           console.log(favoritesData);
           const favorites: Favorite[]=[];
-          let superheroes: Superhero[]=[];
           const superheroesF: Superhero[]=[];
           for(const key in favoritesData){
             //provera da ne gleda nasledjene property-je
@@ -166,7 +192,8 @@ export class SuperheroServiceService {
                     strength: this.superheroesList[keyS].strength,
                     universe: this.superheroesList[keyS].universe,
                     imageUrl: this.superheroesList[keyS].imageUrl,
-                    user_id: this.authService.getUserId()
+                    user_id: this.authService.getUserId(),
+                      iconName: this.superheroesList[keyS].iconName
                   });
                 }
               }
@@ -182,5 +209,19 @@ export class SuperheroServiceService {
 
 
         }));
+  }
+
+  isItInFavorites(superheroID: string){
+    return this.http.get<{[key: string]: FavoritesData}>('https://superhero-app-5c948-default-rtdb.firebaseio.com/favorites.json')
+      .pipe(map((favoritesData)=>{
+        console.log(favoritesData);
+        for(const key in favoritesData){
+          //provera da ne gleda nasledjene property-je
+          if(favoritesData.hasOwnProperty(key) && favoritesData[key].user_id == this.authService.getUserId() && favoritesData[key].superheroID == superheroID){
+            return true;
+          }
+        }
+        return false;
+      }));
   }
 }

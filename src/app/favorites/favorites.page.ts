@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Subscription} from "rxjs";
 import {ModalController} from "@ionic/angular";
 import {SuperheroServiceService} from "../superhero-service.service";
-import {AuthService} from "../auth/auth.service";
 import {Superhero} from "../superheroes/superhero-element/superhero-model";
 
 @Component({
@@ -13,7 +12,7 @@ import {Superhero} from "../superheroes/superhero-element/superhero-model";
 export class FavoritesPage implements OnInit {
   superheroes: Superhero[];
   private _favoriteSub: Subscription;
-  constructor(private modalCtrl: ModalController, private superheroService: SuperheroServiceService, private authService: AuthService) {
+  constructor(private modalCtrl: ModalController, private superheroService: SuperheroServiceService) {
     this.superheroes = [];
     this._favoriteSub= new Subscription();
   }
@@ -25,18 +24,8 @@ export class FavoritesPage implements OnInit {
     });
   }
 
-  ionViewWillEnter(){
-    this.superheroService.getFavoritesById().subscribe((favoritesData)=>{
-      this.superheroes = favoritesData;
-      console.log(this.superheroes);
-    });
-
-  }
-  deleteFavorite(superheroID: String, user_id: String) {
-   /* this.superheroService.deleteFavorite(superheroID, user_id).subscribe(() =>{
-      this.ngOnInit();
-      this.ionViewWillEnter();
-    });*/
+  deleteFavorite(superheroID: string) {
+   this.superheroService.deleteFavorite(superheroID);
   }
 
 }

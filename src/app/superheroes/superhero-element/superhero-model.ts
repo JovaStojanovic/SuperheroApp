@@ -1,9 +1,10 @@
 export interface Superhero {
   id: string;
-  name: String;
-  description: String;
+  name: string;
+  description: string;
   strength: number;
-  universe: String;
-  imageUrl: String;
-  user_id: String;
+  universe: string;
+  imageUrl: string;
+  user_id: string;
+  iconName: string;
 }

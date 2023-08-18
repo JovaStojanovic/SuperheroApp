@@ -1,11 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Superhero} from "../../superheroes/superhero-element/superhero-model";
-import {SuperheroServiceService} from "../../superhero-service.service";
 import {MysuperheroesPage} from "../mysuperheroes.page";
-import {AlertController, ModalController} from "@ionic/angular";
-import {AddSuperheroModalComponent} from "../../add-superhero.modal/add-superhero.modal.component";
-import {UpdateSuperheroModalComponent} from "../../update-superhero.modal/update-superhero.modal.component";
-import {AuthService} from "../../auth/auth.service";
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-mysuperhero-element',
@@ -22,9 +18,10 @@ export class MysuperheroElementComponent  implements OnInit {
     strength: 10,
     universe: "Marvel universe",
     imageUrl: "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg",
-    user_id: "9anSQbvku2SyIgTNTaale2lxtFv2"
+    user_id: "9anSQbvku2SyIgTNTaale2lxtFv2",
+    iconName: ''
   }
-  constructor(private msp: MysuperheroesPage, private alertCtrl: AlertController, private modalCtrl: ModalController, private superheroService: SuperheroServiceService, private authService: AuthService) { }
+  constructor(private msp: MysuperheroesPage, private alertCtrl: AlertController) { }
 
   ngOnInit() {}
 
@@ -55,7 +52,7 @@ export class MysuperheroElementComponent  implements OnInit {
 
   }
 
-  updateSuperhero(id: string, name: String, description: String, strength: number, universe: String, imageUrl: String) {
-    this.msp.updateSuperhero(id, name, description, strength, universe, imageUrl);
+  updateSuperhero(id: string, name: String, description: String, strength: number, universe: String, imageUrl: String, iconName: string) {
+    this.msp.updateSuperhero(id, name, description, strength, universe, imageUrl, iconName);
   }
 }

@@ -3,6 +3,7 @@ import {SuperheroServiceService} from "../superhero-service.service";
 import {Superhero} from "./superhero-element/superhero-model";
 import {Subscription} from "rxjs";
 import {ViewWillEnter} from "@ionic/angular";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-superheroes',
@@ -14,11 +15,14 @@ searchTerm:string;
 filteredSuperheroes: Superhero[]=[];
 
   private _superheroSub: Subscription;
+  private _favorites: Subscription;
   superheroes: Superhero[];
-  constructor(private superheroService: SuperheroServiceService) {
+  favorites: Superhero[];
+  iconName: string;
+  constructor(private superheroService: SuperheroServiceService, private authService: AuthService) {
     this.superheroes = [];
     this._superheroSub= new Subscription();
-
+    this._favorites = new Subscription();
   }
 
   ngOnInit() {
@@ -33,7 +37,6 @@ ionViewWillEnter(){
     this.superheroes = superheroData;
     this.filteredSuperheroes = this.superheroes;
   });
-
 }
   filterResults(search:String){
 
@@ -42,9 +45,7 @@ ionViewWillEnter(){
     }
     this.filteredSuperheroes = this.superheroes.filter(superhero => superhero?.name.toLowerCase().includes(search.toLowerCase()));
   }
-openModal(){
-    console.log("search")
-}
+
 ngOnDestroy(){
     if(this._superheroSub){
       this._superheroSub.unsubscribe();
@@ -52,5 +53,19 @@ ngOnDestroy(){
 }
 
 
-
+  updateSuperheroIcon(id: string, nameS: string, descriptionS: string, strengthS: number, universeS: string, imageUrlS: string, iconNameS: string) {
+    this.superheroService.updateSuperhero(
+        id,
+        {name: nameS,
+          description: descriptionS,
+          strength: strengthS,
+          universe: universeS,
+          imageUrl: imageUrlS,
+          user_id: this.authService.getUserId(),
+          iconName: iconNameS}
+    ).subscribe(() =>{
+      this.ngOnInit();
+      this.ionViewWillEnter();
+    })
+  }
 }

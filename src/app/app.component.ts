@@ -29,7 +29,8 @@ export class AppComponent {
             resultData.data.superheroData.strength,
             resultData.data.superheroData.universe,
             resultData.data.superheroData.imageUrl,
-            this.authService.getUserId()).subscribe((res) =>{
+            this.authService.getUserId(),
+              "star-outline").subscribe((res) =>{
               console.log(res);
           })
         }

@@ -17,11 +17,11 @@
 
   </ion-card-content>
 <ion-card-content class="content-icons">
-<!--  <button ion-fab mini clear (click)="mIName = 'arrow-dropup'">
+<!--<button ion-fab mini clear (click)="mIName = 'arrow-dropup'">
    <ion-icon #minimizeIcon [name]="mIName"></ion-icon>
 </button>-->
-  <button class="button-icon" (click)="mIName = status(superhero.id)">
-  <ion-icon #minimizeIcon [name]="mIName"  slot = "start" color = "secondary" size = "large" ></ion-icon>
+  <button class="button-icon" (click)="status(superhero.id, superhero.name, superhero.description, superhero.strength, superhero.universe, superhero.imageUrl, superhero.iconName)">
+  <ion-icon #minimizeIcon [name]="superhero.iconName"  slot = "start" color = "secondary" size = "large" ></ion-icon>
   </button>
 </ion-card-content>
 </ion-card>

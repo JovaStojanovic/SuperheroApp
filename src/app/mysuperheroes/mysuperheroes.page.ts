@@ -60,7 +60,8 @@ export class MysuperheroesPage implements OnInit {
             resultData.data.superheroData.strength,
             resultData.data.superheroData.universe,
             resultData.data.superheroData.imageUrl,
-            this.authService.getUserId()).subscribe((res) =>{
+            this.authService.getUserId(),
+            "star-outline").subscribe((res) =>{
           console.log(res);
           this.ngOnInit();
           this.ionViewWillEnter();
@@ -70,7 +71,7 @@ export class MysuperheroesPage implements OnInit {
   }
 
 
-  updateSuperhero(id: string, name: String, description: String, strength: number, universe: String, imageUrl: String) {
+  updateSuperhero(id: string, name: String, description: String, strength: number, universe: String, imageUrl: String, iconName: string) {
     this.modalCtrl.create({
       component: UpdateSuperheroModalComponent,
       componentProps: {'superheroName' : name,
@@ -94,7 +95,9 @@ export class MysuperheroesPage implements OnInit {
               strength: resultData.data.superheroData.strength,
               universe: resultData.data.superheroData.universe,
               imageUrl: resultData.data.superheroData.imageUrl,
-              user_id: this.authService.getUserId()}).subscribe((res) =>{
+              user_id: this.authService.getUserId(),
+              iconName: iconName}
+              ).subscribe((res) =>{
           console.log(res);
           this.ngOnInit();
           this.ionViewWillEnter();

@@ -24,7 +24,6 @@ export class AddSuperheroModalComponent  implements OnInit {
     if(this.form.invalid) {
       return;
     }
-
     this.modalCtrl.dismiss({superheroData: {
         name: this.form.value['name'],
         description: this.form.value['description'],

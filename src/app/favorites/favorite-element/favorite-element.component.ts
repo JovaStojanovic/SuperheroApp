@@ -15,15 +15,19 @@ export class FavoriteElementComponent  implements OnInit {
     strength: 10,
     universe: " ",
     imageUrl: "",
-    user_id: ""
+    user_id: "",
+    iconName: ""
   }
   @Input() favorite: Favorite = {
     id: "",
     superheroID: "",
     user_id: ""
   }
-  constructor() { }
 
-  ngOnInit() {}
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
 
 }
