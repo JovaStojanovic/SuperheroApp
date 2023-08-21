@@ -38,6 +38,7 @@ export class MysuperheroesPage implements OnInit {
   }
   deleteSuperhero(superheroID: String) {
     this.superheroService.deleteSuperhero(superheroID).subscribe(() =>{
+        
         this.ngOnInit();
         this.ionViewWillEnter();
     });

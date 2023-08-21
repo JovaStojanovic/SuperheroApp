@@ -25,6 +25,26 @@ export class MysuperheroElementComponent  implements OnInit {
 
   ngOnInit() {}
 
+  async presentAlertDelete() {
+    const alert = await this.alertCtrl.create({
+      header: 'Superhero deleted!',
+      message: 'You have successfully deleted this superhero!',
+      buttons: ['GOOD'],
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertUpdate() {
+    const alert = await this.alertCtrl.create({
+      header: 'Superhero updated!',
+      message: 'You have successfully updated this superhero!',
+      buttons: ['GOOD'],
+    });
+
+    await alert.present();
+  }
+
   deleteSuperhero(superheroID: String) {
     this.alertCtrl.create({
       header: "Deleting superhero",
@@ -35,6 +55,7 @@ export class MysuperheroElementComponent  implements OnInit {
           handler: () =>{
             console.log('Delete');
             this.msp.deleteSuperhero(superheroID);
+            this.presentAlertDelete();
           }
         },
         {
@@ -54,5 +75,6 @@ export class MysuperheroElementComponent  implements OnInit {
 
   updateSuperhero(id: string, name: String, description: String, strength: number, universe: String, imageUrl: String, iconName: string) {
     this.msp.updateSuperhero(id, name, description, strength, universe, imageUrl, iconName);
+    this.presentAlertUpdate();
   }
 }
