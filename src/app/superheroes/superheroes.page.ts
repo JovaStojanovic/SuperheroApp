@@ -61,7 +61,7 @@ ngOnDestroy(){
           strength: strengthS,
           universe: universeS,
           imageUrl: imageUrlS,
-          user_id: this.authService.getUserId(),
+
           iconName: iconNameS}
     ).subscribe(() =>{
       this.ngOnInit();

@@ -133,10 +133,13 @@ export class SuperheroServiceService {
     return this.http.delete('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+superheroID+'.json');
   }
 
-    updateSuperhero(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string, user_id: string, iconName: string}) {
+    updateSuperhero(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string,  iconName: string}) {
       return this.http.put('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+id+'.json', updatedSuperhero);
     }
 
+  updateSuperheroID(id: string, updatedSuperhero: {name: string, description: string, strength: number, universe: string, imageUrl: string, user_id:string, iconName: string}) {
+    return this.http.put('https://superhero-app-5c948-default-rtdb.firebaseio.com/superheroes/'+id+'.json', updatedSuperhero);
+  }
 
   deleteFavorite(superheroID: string) {
     let id2: string = "";

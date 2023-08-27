@@ -38,7 +38,7 @@ export class MysuperheroesPage implements OnInit {
   }
   deleteSuperhero(superheroID: String) {
     this.superheroService.deleteSuperhero(superheroID).subscribe(() =>{
-        
+
         this.ngOnInit();
         this.ionViewWillEnter();
     });
@@ -89,7 +89,7 @@ export class MysuperheroesPage implements OnInit {
         console.log(resultData);
         //povratna vrednost ove POST metode je Observable pa zato moramo da se subscribe-ujemo i da definisemo next fju
         //odnosno sta treba da se desi kad se superhero sacuva na firebase-u
-        this.superheroService.updateSuperhero(
+        this.superheroService.updateSuperheroID(
             id,
             {name: resultData.data.superheroData.name,
               description: resultData.data.superheroData.description,
